@@ -1,0 +1,118 @@
+<div class="tab-container">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#conei" class="conei" data-toggle="tab"><b> RGISTRO APAFA </b></a></li>
+    <!-- <li><a href="#archivo" class="conei" data-toggle="tab"><b> EXPEDIENTES </b></a></li> -->
+  </ul>
+  <div class="tab-content">
+    <div id="conei" class="tab-pane active cont">
+      <div class="col-md-12">
+        <div class="panel panel-default" style="border: 3px solid #EEEEEE;">
+          <div class="panel-heading panel-heading-divider"><b>PERIODO</b>
+          </div>
+          <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="control-label"><b>Periodo : </b></label>
+                    <input  type="text"
+                            id="director_nombres" name='director_nombres' 
+                            value="{{$conei->periodo_nombre}}"                         
+                            required = ""                   
+                            autocomplete="off" class="form-control input-sm director_nombres" data-aw="4" readonly/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="panel panel-default" style="border: 3px solid #EEEEEE;">
+          <div class="panel-heading panel-heading-divider"><b>CONSEJO DIRECTIVO</b>
+          </div>
+          <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            @include('requerimiento.lista.ajax.alistaoidetconei')
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="panel panel-default" style="border: 3px solid #EEEEEE;">
+          <div class="panel-heading panel-heading-divider"><b>CONSEJO VIGILANCIA</b>
+          </div>
+          <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            @include('requerimiento.lista.ajax.alistaoidetconeivi')
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="col-md-12">
+        <div class="panel panel-default" style="border: 3px solid #EEEEEE;">
+          <div class="panel-heading panel-heading-divider"><b>ARCHIVOS</b>
+          </div>
+          <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <table id="nso" class="table table-striped table-borderless table-hover td-color-borde td-padding-7 listatabla">
+            <thead>
+              <tr>
+                <th>Nro</th>
+                <th>Descripcion</th>      
+                <th>Extension</th>      
+                <th>Tamaño(MB)</th>      
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($larchivos as $index => $item)
+                <tr data_precotizacion_id = "{{$item->id}}">
+                  <td>{{ $index+1 }}</td>
+                  <td class="cell-detail" >
+                    <span><b>Lote : </b> {{$item->lote}}</span>
+                    <span><b>Fecha Subida: </b> {{date_format(date_create($item->fecha_crea), 'd-m-Y H:i')}} </span>
+                    <span><b>Nombre Documento : </b> {{$item->nombre_doc}} </span>
+                    <span><b>Periodo : </b> {{$item->periodo_nombre}} </span>
+                  </td>
+                  <td>
+                    <img src="{{ asset('/public/img/icono/'.$item->extension.'.png')}}" width="40px" height="50px" alt="{{ $item->extension }}">
+                  </td>
+                  <td>
+                    {{ round($item->size/pow(1024,$unidad),2) }}
+                  </td>
+
+
+                  <td class="rigth">
+                    <div class="btn-group btn-hspace">
+                      <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Acción <span class="icon-dropdown mdi mdi-chevron-down"></span></button>
+                      <ul role="menu" class="dropdown-menu pull-right">
+                        <li>
+                          <a href="{{ url('/descargar-archivo-requerimiento/'.$idopcion.'/'.Hashids::encode(substr($item->id, -8)).'/'.Hashids::encode(substr($item->id, -8))) }}">
+                            Descargar
+                          </a>  
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>                    
+              @endforeach
+            </tbody>
+          </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+  </div>
+</div>
+

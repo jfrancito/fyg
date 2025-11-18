@@ -1,0 +1,100 @@
+.profile {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 3rem;
+
+  max-width: 300px;
+  background-color: #177bbb;
+  border-radius: 16px;
+  position: relative;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  text-align: center;
+  color: #f1f3f3;
+/*  background-image: linear-gradient(135deg, rgba(255, 204, 0, 0.35), rgba(115, 74, 88, 0.1) 15%, #2371f2 20%, #2371f2 100%);*/
+}
+.profile:after {
+  content: "";
+  display: block;
+  top: -3px;
+  left: -3px;
+  bottom: -3px;
+  right: -3px;
+  z-index: -1;
+  position: absolute;
+  border-radius: 16px;
+  background-image: linear-gradient(135deg, #FFCC00 , #FFCC00  20%, #177bbb 30%, #177bbb 100%);
+}
+
+
+
+.profile-2 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem 3rem;
+  width: 93%;
+  max-width: 300px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  position: relative;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  text-align: center;
+  color: #00000;
+/*  background-image: linear-gradient(135deg, rgba(255, 204, 0, 0.35), rgba(115, 74, 88, 0.1) 15%, #2371f2 20%, #2371f2 100%);*/
+}
+.profile-2:after {
+  content: "";
+  display: block;
+  top: -3px;
+  left: -3px;
+  bottom: -3px;
+  right: -3px;
+  z-index: -1;
+  position: absolute;
+  border-radius: 16px;
+  background-image: linear-gradient(135deg, #177bbb , #177bbb  20%, #ffffff 30%, #ffffff 100%);
+}
+
+
+.profile-image {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 175px;
+  position: relative;
+}
+.profile-image img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.profile-username {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+}
+
+.profile-user-handle {
+  color: #7d8396;
+  font-size: 1.5rem;
+
+}
+
+.profile-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-actions > * {
+  margin: 0 0.25rem;
+}
+.titulo-profile{
+	font-size: 20px;
+	font-weight: bold;
+}
