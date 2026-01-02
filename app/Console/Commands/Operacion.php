@@ -43,7 +43,13 @@ class Operacion extends Command
      */
     public function handle()
     {
-        $this->sut_traer_data_sunat();
-        $this->sunatarchivos();
+        $horaActual = date("H:i");
+
+        if($horaActual == '06:00' || $horaActual == '07:00' || $horaActual == '05:00'){
+            $this->sut_traer_data_sunat();
+            $this->sunatarchivos();
+        }
+
+
     }
 }
