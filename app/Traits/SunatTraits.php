@@ -77,7 +77,7 @@ trait SunatTraits
 		foreach ($empresas as $indexe=>$item) {
 
 			$periodo_actual = \Carbon\Carbon::now()->format('Ym');
-
+			//$periodo_actual = '202312';
 
 			// Convertir a Carbon y calcular periodo anterior
 			$fechaActual = \Carbon\Carbon::createFromFormat('Ym', $periodo_actual);
@@ -99,49 +99,53 @@ trait SunatTraits
 					$respuetaxml 				=	$this->sut_buscar_archivo_sunat_compra($urlxml,$fetoken);
 
 
+					if(isset($respuetaxml['registros'])){
 
-					foreach ($respuetaxml['registros'] as $valorsire) {
-
-					//dd($valorsire);
-
-							$documento 							=	DocumentoSunat::where('RUC_EMPRESA_PROVEEDOR','=',$valorsire['numDocIdentidadProveedor'])
-																	->where('SERIE','=',$valorsire['numSerieCDP'])->where('NUMERO','=',$valorsire['numCDP'])
-																	->where('COD_TIPODOCUMENTO','=',$valorsire['codTipoCDP'])
-																	->where('RUC_EMPRESA','=',$item->COD_EMPR)
-																	->first();
-							if(count($documento)<=0){
+						foreach ($respuetaxml['registros'] as $valorsire) {
 
 
-								$fecha = $valorsire['fecEmision'];
-								$anioMes = date('Ym', strtotime($fecha));
+								$documento 							=	DocumentoSunat::where('RUC_EMPRESA_PROVEEDOR','=',$valorsire['numDocIdentidadProveedor'])
+																		->where('SERIE','=',$valorsire['numSerieCDP'])->where('NUMERO','=',$valorsire['numCDP'])
+																		->where('COD_TIPODOCUMENTO','=',$valorsire['codTipoCDP'])
+																		->where('RUC_EMPRESA','=',$item->COD_EMPR)
+																		->first();
+								if(count($documento)<=0){
 
 
-								$cabecera     						= 	new DocumentoSunat;
-								$cabecera->ID      				 	= 	$valorsire['id'];
-								$cabecera->RUC_EMPRESA     			= 	$item->COD_EMPR;	
-								$cabecera->TXT_EMPRESA     			= 	$item->TXT_EMPR;
+									$fecha = $valorsire['fecEmision'];
+									$anioMes = date('Ym', strtotime($fecha));
 
-								$cabecera->RUC_EMPRESA_PROVEEDOR     = 	$valorsire['numDocIdentidadProveedor'];	
-								$cabecera->TXT_EMPRESA_PROVEEDOR     = 	$valorsire['nomRazonSocialProveedor'];	
-								$cabecera->COD_TIPODOCUMENTO      	 = 	$valorsire['codTipoCDP'];
-								$cabecera->TXT_TIPODOCUMENTO      	 = 	$valorsire['desTipoCDP'];
-								$cabecera->SERIE      				 = 	$valorsire['numSerieCDP'];	
-								$cabecera->NUMERO       			 = 	$valorsire['numCDP'];
-								$cabecera->PERIODO      		 	 = 	$anioMes;
 
-								$cabecera->FECHA_EMISION      		 = 	$valorsire['fecEmision'];
-								$cabecera->FECHA_VENCIMIENTO      	 = 	$valorsire['fecVencPag'];
-								$cabecera->MONEDA      			     = 	$valorsire['codMoneda'];	
-								$cabecera->ESTADO       			 = 	$valorsire['desEstadoComprobante'];	
-								$cabecera->TOTAL       			 	 = 	$valorsire['montos']['mtoTotalCp'];	
-								$cabecera->IND_PDF      			 = 	0;
-								$cabecera->IND_XML      			 = 	0;
-								$cabecera->IND_CDR      			 = 	0;
-								$cabecera->IND_TOTAL      			 = 	0;
-								$cabecera->CONTADOR      			 = 	0;
-								$cabecera->save();
-							}
+									$cabecera     						= 	new DocumentoSunat;
+									$cabecera->ID      				 	= 	$valorsire['id'];
+									$cabecera->RUC_EMPRESA     			= 	$item->COD_EMPR;	
+									$cabecera->TXT_EMPRESA     			= 	$item->TXT_EMPR;
+
+									$cabecera->RUC_EMPRESA_PROVEEDOR     = 	$valorsire['numDocIdentidadProveedor'];	
+									$cabecera->TXT_EMPRESA_PROVEEDOR     = 	$valorsire['nomRazonSocialProveedor'];	
+									$cabecera->COD_TIPODOCUMENTO      	 = 	$valorsire['codTipoCDP'];
+									$cabecera->TXT_TIPODOCUMENTO      	 = 	$valorsire['desTipoCDP'];
+									$cabecera->SERIE      				 = 	$valorsire['numSerieCDP'];	
+									$cabecera->NUMERO       			 = 	$valorsire['numCDP'];
+									$cabecera->PERIODO      		 	 = 	$anioMes;
+
+									$cabecera->FECHA_EMISION      		 = 	$valorsire['fecEmision'];
+									$cabecera->FECHA_VENCIMIENTO      	 = 	$valorsire['fecVencPag'];
+									$cabecera->MONEDA      			     = 	$valorsire['codMoneda'];	
+									$cabecera->ESTADO       			 = 	$valorsire['desEstadoComprobante'];	
+									$cabecera->TOTAL       			 	 = 	$valorsire['montos']['mtoTotalCp'];	
+									$cabecera->IND_PDF      			 = 	0;
+									$cabecera->IND_XML      			 = 	0;
+									$cabecera->IND_CDR      			 = 	0;
+									$cabecera->IND_TOTAL      			 = 	0;
+									$cabecera->CONTADOR      			 = 	0;
+									$cabecera->save();
+								}
+						}
+
 					}
+
+
 				}	
 			}
 
